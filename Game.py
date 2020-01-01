@@ -105,37 +105,6 @@ class Effect(object):
 		else:
 			self.amount = None
 
-
-
-
-class Card(object):
-	def __init__(self, suit, number, effect=Effect(False)):
-		self.suit = suit
-		self.number = number
-		self.effect = effect
-
-	def play(self):
-		pass
-
-	def __str__(self):
-		return f"{self.suit} {self.number}"
-
-
-class Pile(object):
-	def __init__(self):
-		self.list = []
-
-	def check_play(self, card):
-		out = False
-		if card.effect.bypass_suit:
-			out = True
-		elif card.suit == self.list[-1].suit:
-			out = True
-		elif card.number == self.list[-1].number:
-			out = True
-		return out
-
-
 class Player(object):
 	def __init__(self, name):
 		self.name = name
