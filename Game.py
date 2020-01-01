@@ -78,7 +78,7 @@ class Stack():
 		self.list += effect
 
 	def execute(self):
-		pass
+		self.reverse_order = bool(len(list(filter(lambda x: x.effect.type == effect, self.list)))%2)
 
 	def isSkip(self):
 		return self.skip
