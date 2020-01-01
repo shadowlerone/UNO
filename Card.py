@@ -1,3 +1,4 @@
+import Effect
 class Card(object):
 	def __init__(self, suit, number, effect=Effect(False)):
 		self.suit = suit
