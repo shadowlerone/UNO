@@ -1,4 +1,6 @@
 import random
+import Card
+
 
 # constant
 UNO = "uno"
@@ -153,7 +155,7 @@ class Player(object):
 	def __str__(self):
 		return self.name
 	def display_hand(self):
-		return ", ".join(self.hand)
+		return ",".join(self.hand)
 	def has_suit(self, suit):
 		return len(list(filter(lambda x: x.suit == suit, turn_player.hand))) > 0
 	def has_number(self, suit):
