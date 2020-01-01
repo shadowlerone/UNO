@@ -67,35 +67,6 @@ class Game(object):
 		else:
 			self.draw_check = True
 
-
-class Stack():
-	def __init__(self):
-		self.list = [] #list of effects
-		self.skip = False
-		self.draw = False
-		self.drawAmount = 0
-		self.reverse_order = False
-
-	def reset(self):
-		self.list = [] #list of effects
-		self.skip = False
-		self.draw = False
-		self.drawAmount = 0
-		self.reverse_order = False
-
-	def add_effect(self, effect):
-		self.list += effect
-
-	def execute(self):
-		self.reverse_order = bool(len(list(filter(lambda x: x.type == effect, self.list)))%2)
-
-	def isSkip(self):
-		return self.skip
-	def isDraw(self):
-		return self.draw
-
-
-
 class Effect(object):
 	def __init__(self, effect_type=None, amount=None, bypass_suit=False):
 		self.bypass_suit = bypass_suit
