@@ -8,23 +8,6 @@ import Player
 UNO = "uno"
 LASTCARD = "lastcard"
 
-def uno_deck():
-	template = []
-	for x in range(10):
-		template += [[x, None] *2]
-	return template
-
-
-
-def deck_format(type):
-	temp = uno_deck()
-	# print(temp)
-	out = []
-	for suit in ["red", "blue", "green", "yellow"]:
-		for x in temp:
-			out += [Card(suit, x[0], x[1])]
-	return out
-
 class Game(object):
 	def __init__(self, deck_type = UNO, number_of_players=2):
 		self.players = []
