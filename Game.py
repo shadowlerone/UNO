@@ -7,21 +7,22 @@ LASTCARD = "lastcard"
 def uno_deck():
 	template = []
 	for x in range(10):
-		template += [x, None] *2
+		template += [[x, None] *2]
 	return template
 
 
 
 def deck_format(type):
 	temp = uno_deck()
+	# print(temp)
 	out = []
 	for suit in ["red", "blue", "green", "yellow"]:
 		for x in temp:
-			out += Card(suit, x[1], x[2])
+			out += [Card(suit, x[0], x[1])]
 	return out
 
 class Game(object):
-	def __init__(self, deck_comp, number_of_players=2):
+	def __init__(self, deck_type = UNO, number_of_players=2):
 		self.players = []
 		for x in range(number_of_players):
 			name = input(f"Player {x+1}'s name: ")
@@ -32,17 +33,21 @@ class Game(object):
 		self.player_order = self.players
 		self.current_player_number = 0
 		self.draw_check = False
+		print(f"Setup finished!")
 
 	def turn(self):
 		self.player_increment = 1
 		self.collapse_stack()
 		self.current_player_number = (self.current_player + self.player_increment) % len(self.player_order)
 		turn_player = self.player_order[self.current_player_number]
+		print(f"Player {self.player_order[0]}'s turn.'")
+		added_options = []
 		if self.draw_check and not turn_player.has_effect("draw"):
 			for x in range(self.stack.drawAmount):
 				turn_player.draw_card(self.deck)
 		else:
-			input(f"[0: Draw {self.stack.drawAmount}\t1:]")
+			added_options += []
+		option_string = ", ".join(turn_player.get_playable())
 
 	def check_play(self):
 		pass
@@ -90,20 +95,22 @@ class Stack():
 
 
 class Effect(object):
-	def __init__(self, type=None, amount=0, bypass_suit=False):
+	def __init__(self, effect_type=None, amount=None, bypass_suit=False):
 		self.bypass_suit = bypass_suit
+		self.type = effect_type
+		if self.type == "draw":
+			self.amount = amount
+		else:
+			self.amount = None
 
 
 
 
 class Card(object):
 	def __init__(self, suit, number, effect=Effect(False)):
-		self.suit = color
+		self.suit = suit
 		self.number = number
 		self.effect = effect
-
-	def activate(self):
-		self.effect()
 
 	def play(self):
 		pass
@@ -131,20 +138,22 @@ class Player(object):
 	def __init__(self, name):
 		self.name = name
 		self.hand = []
+		self.playable = []
 
 	def draw_card(self, deck):
 		self.hand += deck.draw()
 
 	def play_card(self, index):
-		return self.hand.pop(index)
+		return self.playable.pop(index)
 
 	def get_playable(self, suit=None, number=None, effect=None):
+		self.playable = list(filter(lambda x: x.suit == suit or x.number == number or x.effect.type == effect, turn_player.hand))
 		return list(filter(lambda x: x.suit == suit or x.number == number or x.effect.type == effect, turn_player.hand))
 
 	def __str__(self):
 		return self.name
 	def display_hand(self):
-		return "".join(self.hand, ", ")
+		return ", ".join(self.hand)
 	def has_suit(self, suit):
 		return len(list(filter(lambda x: x.suit == suit, turn_player.hand))) > 0
 	def has_number(self, suit):
@@ -155,7 +164,7 @@ class Player(object):
 
 class Deck(object):
 	def __init__(self, type=UNO):
-		self.list = []
+		self.list = deck_format(type)
 
 	def draw(self):
 		return self.list.pop()
