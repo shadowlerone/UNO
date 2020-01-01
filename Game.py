@@ -41,6 +41,8 @@ class Game(object):
 		if self.draw_check and not turn_player.has_effect("draw"):
 			for x in range(self.stack.drawAmount):
 				turn_player.draw_card(self.deck)
+		else:
+			input(f"[0: Draw {self.stack.drawAmount}\t1:]")
 
 	def check_play(self):
 		pass
@@ -78,7 +80,7 @@ class Stack():
 		self.list += effect
 
 	def execute(self):
-		self.reverse_order = bool(len(list(filter(lambda x: x.effect.type == effect, self.list)))%2)
+		self.reverse_order = bool(len(list(filter(lambda x: x.type == effect, self.list)))%2)
 
 	def isSkip(self):
 		return self.skip
@@ -135,6 +137,9 @@ class Player(object):
 
 	def play_card(self, index):
 		return self.hand.pop(index)
+
+	def get_playable(self, suit=None, number=None, effect=None):
+		return list(filter(lambda x: x.suit == suit or x.number == number or x.effect.type == effect, turn_player.hand))
 
 	def __str__(self):
 		return self.name
