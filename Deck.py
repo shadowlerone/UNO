@@ -1,3 +1,9 @@
+import Card
+import random
+
+UNO = "uno"
+LASTCARD = "lastcard"
+
 def uno_deck():
 	template = []
 	for x in range(10):
@@ -12,7 +18,7 @@ def deck_format(type):
 	out = []
 	for suit in ["red", "blue", "green", "yellow"]:
 		for x in temp:
-			out += [Card(suit, x[0], x[1])]
+			out += [Card.Card(suit, x[0], x[1])]
 	return out
 
 class Deck(object):

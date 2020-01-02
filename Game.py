@@ -3,6 +3,7 @@ import Card
 import Effect
 import Deck
 import Player
+import Stack
 
 # constant
 UNO = "uno"
@@ -13,7 +14,7 @@ class Game(object):
 		self.players = []
 		for x in range(number_of_players):
 			name = input(f"Player {x+1}'s name: ")
-			self.players += Player(name)
+			self.players += Player.Player(name)
 		self.deck = Deck()
 		self.pile = Pile()
 		self.stack = []
@@ -46,11 +47,42 @@ class Game(object):
 		if self.stack.reverse == True:
 			self.player_order.reverse()
 		elif self.stack.isSkip() == True:
-			self.player_increment = 2
+			self.player_increment += self.stack.skipAmount
 		if self.stack.isDraw() == False:
 			self.stack.reset()
 		else:
 			self.draw_check = True
+
+
+if __name__ == "__main__":
+	#deck test
+	deck = Deck.Deck()
+	print(deck.list)
+	#Stack + effect test
+	stack = Stack.Stack()
+	skip_effect = Effect.Effect(Effect.SKIP)
+	draw_two_effect = Effect.Effect(Effect.DRAW, amount = 2)
+	draw_four_effect = Effect.Effect(Effect.DRAW, amount = 4)
+	stack.add_effect(skip_effect)
+	stack.add_effect(draw_four_effect)
+	stack.add_effect(draw_two_effect)
+	stack.add_effect(Effect.Effect(Effect.REVERSE))
+	stack.add_effect(Effect.Effect(Effect.REVERSE))
+	stack.execute()
+	print(f"Draw? {stack.isDraw()}")
+	print(f"Skip? {stack.isSkip()}")
+	print(f"Draw amount: {stack.drawAmount}")
+	print(f"Skip Amount {stack.skipAmount}")
+	deck.shuffle()
+	test_player = Player.Player("Test")
+	print(f"Deck length: {len(deck.list)}")
+	print(f"Deck Last Card: {deck.list[-1]}")
+	print(f"Player hand length: {len(test_player.hand)}")
+	test_player.draw_card(deck)
+	print(f"Deck length: {len(deck.list)}")
+	print(f"Deck Last Card: {deck.list[-1]}")
+	print(f"Player hand length: {len(test_player.hand)}")
+	print(f"Player Hand: {test_player.display_hand()}")
 
 
 """

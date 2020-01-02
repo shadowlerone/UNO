@@ -6,7 +6,7 @@ class Player(object):
 		self.playable = []
 
 	def draw_card(self, deck):
-		self.hand += deck.draw()
+		self.hand.append(deck.draw())
 
 	def play_card(self, index):
 		return self.playable.pop(index)
@@ -18,7 +18,10 @@ class Player(object):
 	def __str__(self):
 		return self.name
 	def display_hand(self):
-		return ",".join(self.hand)
+		out = []
+		for card in self.hand:
+			out.append(str(card))
+		return out
 	def has_suit(self, suit):
 		return len(list(filter(lambda x: x.suit == suit, turn_player.hand))) > 0
 	def has_number(self, suit):

@@ -1,3 +1,6 @@
+DRAW = "draw"
+SKIP = "skip"
+
 class Effect(object):
 	def __init__(self, effect_type=None, amount=None, bypass_suit=False):
 		self.bypass_suit = bypass_suit
