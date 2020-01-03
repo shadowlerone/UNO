@@ -10,6 +10,9 @@ def uno_deck():
 	for x in range(10):
 		template.append(x)
 		template.append(x)
+	for x in range(1, 10):
+		template.append(x)
+		template.append(x)
 	# print(template)
 	return template
 
@@ -22,6 +25,13 @@ def deck_format(type):
 	for suit in ["red", "blue", "green", "yellow"]:
 		for x in temp:
 			out.append(Card.Card(suit, x))
+		out.append(Card.Card(suit, "skip", Effect.Effect(EFFECT.SKIP)))
+		out.append(Card.Card(suit, "skip", Effect.Effect(EFFECT.SKIP)))
+		out.append(Card.Card(suit, "reverse", Effect.Effect(EFFECT.REVERSE)))
+		out.append(Card.Card(suit, "reverse", Effect.Effect(EFFECT.REVERSE)))
+		out.append(Card.Card(suit, "draw", Effect.Effect(EFFECT.DRAW, 2)))
+		out.append(Card.Card(suit, "draw", Effect.Effect(EFFECT.DRAW, 2)))
+
 	return out
 
 class Deck(object):

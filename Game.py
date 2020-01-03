@@ -36,7 +36,7 @@ class Game(object):
 		turn_player = self.player_order[self.current_player_number]
 		print(f"Player {turn_player}'s turn.")
 		print(f"Your Hand: {turn_player.display_hand()}")
-		""" if self.draw_check:
+		if self.draw_check:
 			if turn_player.has_effect("draw"):
 				drawinput(f"[O: Draw {self.stack.drawAmount}] [1: Play Card With DRAW]")
 			else:
@@ -45,7 +45,7 @@ class Game(object):
 					turn_player.draw_card(self.deck)
 		else:
 			pass
-		option_string = ", ".join(turn_player.get_playable()) """
+		option_string = ", ".join(turn_player.get_playable())
 		print(f"Top of Pile: {self.pile.top()}")
 		options = turn_player.get_playable(self.pile.top().suit, self.pile.top().number)
 		if len(options) == 0:
