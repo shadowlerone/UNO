@@ -82,34 +82,6 @@ class Game(object):
 
 
 if __name__ == "__main__":
-	#deck test
-	deck = Deck.Deck()
-	print(deck.list)
-	#Stack + effect test
-	stack = Stack.Stack()
-	skip_effect = Effect.Effect(Effect.SKIP)
-	draw_two_effect = Effect.Effect(Effect.DRAW, amount = 2)
-	draw_four_effect = Effect.Effect(Effect.DRAW, amount = 4)
-	stack.add_effect(skip_effect)
-	stack.add_effect(draw_four_effect)
-	stack.add_effect(draw_two_effect)
-	stack.add_effect(Effect.Effect(Effect.REVERSE))
-	stack.add_effect(Effect.Effect(Effect.REVERSE))
-	stack.execute()
-	print(f"Draw? {stack.isDraw()}")
-	print(f"Skip? {stack.isSkip()}")
-	print(f"Draw amount: {stack.drawAmount}")
-	print(f"Skip Amount {stack.skipAmount}")
-	deck.shuffle()
-	test_player = Player.Player("Test")
-	print(f"Deck length: {len(deck.list)}")
-	print(f"Deck Last Card: {deck.list[-1]}")
-	print(f"Player hand length: {len(test_player.hand)}")
-	test_player.draw_card(deck)
-	print(f"Deck length: {len(deck.list)}")
-	print(f"Deck Last Card: {deck.list[-1]}")
-	print(f"Player hand length: {len(test_player.hand)}")
-	print(f"Player Hand: {test_player.display_hand()}")
 	game = Game()
 	while not game.done:
 		game.turn()
