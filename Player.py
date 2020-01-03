@@ -23,6 +23,7 @@ class Player(object):
 		for index, card in enumerate(self.hand):
 			out += f"[{index}: {card}]"
 		return out
+
 	def has_suit(self, suit):
 		return len(list(filter(lambda x: x.suit == suit, turn_player.hand))) > 0
 	def has_number(self, suit):
