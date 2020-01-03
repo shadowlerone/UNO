@@ -36,7 +36,7 @@ class Game(object):
 	def turn(self):
 		self.player_increment = 1
 		self.collapse_stack()
-		self.current_player_number = (self.last_player_number + self.player_increment) % len(self.player_order)
+		self.current_player_number = (self.last_player_number + self.player_increment) % len(self.player_order) #modulo to wrap around
 		turn_player = self.player_order[self.current_player_number]
 		print(f"Player {turn_player}'s turn.")
 		print(f"Your Hand: {turn_player.display_hand()}")
@@ -95,8 +95,6 @@ class Game(object):
 		else:
 			return False
 
-	def check_play(self):
-		pass
 	def shuffle_deck(self):
 		self.deck.shuffle()
 
