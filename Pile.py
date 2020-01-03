@@ -1,6 +1,7 @@
 class Pile(object):
 	def __init__(self):
 		self.list = []
+		self.suit_override = None
 
 	def check_play(self, card):
 		out = False
@@ -11,12 +12,15 @@ class Pile(object):
 		elif card.number == self.list[-1].number:
 			out = True
 		return out
-	
 	def add_card(self, card):
 		self.list.append(card)
+		self.suit_override = None
 
 	def get_playable(self):
-		return self.list[-1].suit, self.list[-1].number
+		if self.suit_override != None:
+			return self.suit_override, self.list[-1].number
+		else:
+			return self.list[-1].suit, self.list[-1].number
 
 	def top(self):
 		return self.list[-1]
