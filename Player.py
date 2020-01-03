@@ -19,9 +19,9 @@ class Player(object):
 	def __str__(self):
 		return self.name
 	def display_hand(self):
-		out = []
-		for card in self.hand:
-			out.append(str(card))
+		out = ""
+		for index, card in enumerate(self.hand):
+			out += f"[{index}: {card}]"
 		return out
 	def has_suit(self, suit):
 		return len(list(filter(lambda x: x.suit == suit, turn_player.hand))) > 0

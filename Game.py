@@ -24,6 +24,9 @@ class Game(object):
 		self.done = False
 		self.draw_check = False
 		print(f"Setup finished!")
+		for p in self.players:
+			p.draw(deck, 7)
+		pile.add_card(deck.draw())
 
 	def turn(self):
 		self.player_increment = 1
@@ -31,7 +34,7 @@ class Game(object):
 		self.current_player_number = (self.current_player_number + self.player_increment) % len(self.player_order)
 		turn_player = self.player_order[self.current_player_number]
 		print(f"Player {self.player_order[0]}'s turn.")
-		added_options = []
+		print(f"Your Hand: {turn_player.display_hand()}")
 		""" if self.draw_check:
 			if turn_player.has_effect("draw"):
 				drawinput(f"[O: Draw {self.stack.drawAmount}] [1: Play Card With DRAW]")
@@ -43,8 +46,8 @@ class Game(object):
 			pass
 		option_string = ", ".join(turn_player.get_playable()) """
 
-		options = turn_player.get_playable()
-		option_string = ""
+		options = turn_player.get_playable(pile.get_playable())
+		option_string = "Pick a card: "
 		for index, card in enumerate(options):
 			option_string += f"[{index}: {card}]"
 		choice = input(option_string)
