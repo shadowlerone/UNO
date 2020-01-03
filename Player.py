@@ -13,8 +13,18 @@ class Player(object):
 		self.hand.remove(self.playable[index])
 		return self.playable.pop(index)
 
-	def get_playable(self, suit=None, number=None):
-		self.playable = list(filter(lambda x: (x.suit == suit or x.effect.bypass_suit == True) or x.number == number, self.hand))
+	def get_playable(self, suit=None, number=None, effect = None, strict = False):
+		if strict:
+			if number == None and suit == None:
+				self.playable = list(filter(lambda x: x.effect.type == effect, self.hand))
+			elif suit == None:
+				self.playable = list(filter(lambda x: x.number == number and x.effect.type == effect, self.hand))
+			elif number == None:
+				self.playable = list(filter(lambda x: (x.suit == suit or x.effect.bypass_suit == True) and x.effect.type == effect, self.hand))
+			else:
+				self.playable = list(filter(lambda x: (x.suit == suit or x.effect.bypass_suit == True) and x.number == number and x.effect.type == effect, self.hand))
+		else:
+			self.playable = list(filter(lambda x: (x.suit == suit or x.effect.bypass_suit == True) or x.number == number or x.effect.type == effect, self.hand))
 		return self.playable
 
 	def __str__(self):
