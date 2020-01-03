@@ -4,6 +4,7 @@ import Effect
 import Deck
 import Player
 import Stack
+import Pile
 
 # constant
 UNO = "uno"
@@ -12,23 +13,24 @@ LASTCARD = "lastcard"
 class Game(object):
 	def __init__(self, deck_type = UNO, number_of_players=2):
 		self.players = []
-		for x in range(number_of_players):
-			name = input(f"Player {x+1}'s name: ")
-			self.players += Player.Player(name)
-		self.deck = Deck()
-		self.pile = Pile()
-		self.stack = []
+		for x in ["test", "myuu"]:
+			# name = input(f"Player {x+1}'s name: ")
+			self.players.append(Player.Player(x))
+		self.deck = Deck.Deck()
+		self.pile = Pile.Pile()
+		self.stack = Stack.Stack()
 		self.player_order = self.players
 		self.current_player_number = 0
+		self.done = False
 		self.draw_check = False
 		print(f"Setup finished!")
 
 	def turn(self):
 		self.player_increment = 1
 		self.collapse_stack()
-		self.current_player_number = (self.current_player + self.player_increment) % len(self.player_order)
+		self.current_player_number = (self.current_player_number + self.player_increment) % len(self.player_order)
 		turn_player = self.player_order[self.current_player_number]
-		print(f"Player {self.player_order[0]}'s turn.'")
+		print(f"Player {self.player_order[0]}'s turn.")
 		added_options = []
 		""" if self.draw_check:
 			if turn_player.has_effect("draw"):
@@ -69,7 +71,7 @@ class Game(object):
 
 	def collapse_stack(self):
 		self.stack.execute()
-		if self.stack.reverse == True:
+		if self.stack.reverse_order == True:
 			self.player_order.reverse()
 		elif self.stack.isSkip() == True:
 			self.player_increment += self.stack.skipAmount
@@ -110,7 +112,7 @@ if __name__ == "__main__":
 	print(f"Player Hand: {test_player.display_hand()}")
 	game = Game()
 	while not game.done:
-		Game.turn()
+		game.turn()
 
 
 """

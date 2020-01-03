@@ -13,8 +13,8 @@ class Player(object):
 		return self.playable.pop(index)
 
 	def get_playable(self, suit=None, number=None):
-		self.playable = list(filter(lambda x: x.suit == suit or x.number == number or x.effect.type == effect, turn_player.hand))
-		return list(filter(lambda x: x.suit == suit or x.number == number or x.effect.type == effect, turn_player.hand))
+		self.playable = list(filter(lambda x: (x.suit == suit or x.effect.bypass_suit == True) or x.number == number or x.effect.type == effect, self.hand))
+		return self.playable
 
 	def __str__(self):
 		return self.name
