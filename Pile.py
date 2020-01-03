@@ -11,3 +11,9 @@ class Pile(object):
 		elif card.number == self.list[-1].number:
 			out = True
 		return out
+	
+	def add_card(self, card):
+		self.list.append(card)
+
+	def get_playable(self):
+		return self.list[-1].suit, self.list[-1].number

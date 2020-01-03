@@ -30,12 +30,37 @@ class Game(object):
 		turn_player = self.player_order[self.current_player_number]
 		print(f"Player {self.player_order[0]}'s turn.'")
 		added_options = []
-		if self.draw_check and not turn_player.has_effect("draw"):
-			for x in range(self.stack.drawAmount):
-				turn_player.draw_card(self.deck)
+		""" if self.draw_check:
+			if turn_player.has_effect("draw"):
+				drawinput(f"[O: Draw {self.stack.drawAmount}] [1: Play Card With DRAW]")
+			else:
+				print(f"Drawing {self.stack.drawAmount}")
+				for x in range(self.stack.drawAmount):
+					turn_player.draw_card(self.deck)
 		else:
-			added_options += []
-		option_string = ", ".join(turn_player.get_playable())
+			pass
+		option_string = ", ".join(turn_player.get_playable()) """
+
+		options = turn_player.get_playable()
+		option_string = ""
+		for index, card in enumerate(options):
+			option_string += f"[{index}: {card}]"
+		choice = input(option_string)
+		turn_player.play_card(choice)
+
+		if check_victory(turn_player):
+			self.end(turn_player)
+
+
+	def end(self, player):
+		print(f"Congratulations {player}, you won!")
+		self.done = True
+
+	def check_victory(self, player):
+		if len(player.hand) == 0:
+			return True
+		else:
+			return False
 
 	def check_play(self):
 		pass
@@ -83,6 +108,9 @@ if __name__ == "__main__":
 	print(f"Deck Last Card: {deck.list[-1]}")
 	print(f"Player hand length: {len(test_player.hand)}")
 	print(f"Player Hand: {test_player.display_hand()}")
+	game = Game()
+	while not game.done:
+		Game.turn()
 
 
 """

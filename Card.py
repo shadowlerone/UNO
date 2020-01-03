@@ -9,4 +9,4 @@ class Card(object):
 		pass
 
 	def __str__(self):
-		return f"{self.suit} {self.number}"
+		return f"{self.suit} {self.number} ({self.effect})"

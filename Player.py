@@ -5,13 +5,14 @@ class Player(object):
 		self.hand = []
 		self.playable = []
 
-	def draw_card(self, deck):
-		self.hand.append(deck.draw())
+	def draw_card(self, deck, amount = 1):
+		for x in range(amount):
+			self.hand.append(deck.draw())
 
 	def play_card(self, index):
 		return self.playable.pop(index)
 
-	def get_playable(self, suit=None, number=None, effect=None):
+	def get_playable(self, suit=None, number=None):
 		self.playable = list(filter(lambda x: x.suit == suit or x.number == number or x.effect.type == effect, turn_player.hand))
 		return list(filter(lambda x: x.suit == suit or x.number == number or x.effect.type == effect, turn_player.hand))
 
