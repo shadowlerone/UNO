@@ -1,5 +1,6 @@
 import Card
 import random
+import Effect
 
 UNO = "uno"
 LASTCARD = "lastcard"
@@ -7,7 +8,9 @@ LASTCARD = "lastcard"
 def uno_deck():
 	template = []
 	for x in range(10):
-		template += [[x, None] *2]
+		template.append(x)
+		template.append(x)
+	# print(template)
 	return template
 
 
@@ -18,7 +21,7 @@ def deck_format(type):
 	out = []
 	for suit in ["red", "blue", "green", "yellow"]:
 		for x in temp:
-			out += [Card.Card(suit, x[0], x[1])]
+			out.append(Card.Card(suit, x))
 	return out
 
 class Deck(object):

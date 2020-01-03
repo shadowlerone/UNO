@@ -1,9 +1,10 @@
 DRAW = "draw"
 SKIP = "skip"
 REVERSE = "reverse"
+NONE = "none"
 
 class Effect(object):
-	def __init__(self, effect_type=None, amount=None, bypass_suit=False):
+	def __init__(self, effect_type=NONE, amount=NONE, bypass_suit=False):
 		self.bypass_suit = bypass_suit
 		self.type = effect_type
 		if self.type == DRAW:
@@ -17,3 +18,4 @@ class Effect(object):
 			out += f" {self.amount}"
 		if self.bypass_suit:
 			out += " suitless"
+		return out

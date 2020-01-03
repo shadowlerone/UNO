@@ -10,10 +10,11 @@ class Player(object):
 			self.hand.append(deck.draw())
 
 	def play_card(self, index):
+		self.hand.remove(self.playable[index])
 		return self.playable.pop(index)
 
 	def get_playable(self, suit=None, number=None):
-		self.playable = list(filter(lambda x: (x.suit == suit or x.effect.bypass_suit == True) or x.number == number or x.effect.type == effect, self.hand))
+		self.playable = list(filter(lambda x: (x.suit == suit or x.effect.bypass_suit == True) or x.number == number, self.hand))
 		return self.playable
 
 	def __str__(self):
@@ -21,7 +22,7 @@ class Player(object):
 	def display_hand(self):
 		out = ""
 		for index, card in enumerate(self.hand):
-			out += f"[{index}: {card}]"
+			out += f"[{index}: {card}] "
 		return out
 
 	def has_suit(self, suit):

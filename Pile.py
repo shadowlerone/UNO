@@ -17,3 +17,6 @@ class Pile(object):
 
 	def get_playable(self):
 		return self.list[-1].suit, self.list[-1].number
+
+	def top(self):
+		return self.list[-1]

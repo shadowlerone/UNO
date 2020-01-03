@@ -13,10 +13,11 @@ LASTCARD = "lastcard"
 class Game(object):
 	def __init__(self, deck_type = UNO, number_of_players=2):
 		self.players = []
-		for x in ["test", "myuu"]:
-			# name = input(f"Player {x+1}'s name: ")
-			self.players.append(Player.Player(x))
+		for x in range(number_of_players):
+			name = input(f"Player {x+1}'s name: ")
+			self.players.append(Player.Player(name))
 		self.deck = Deck.Deck()
+		self.shuffle_deck()
 		self.pile = Pile.Pile()
 		self.stack = Stack.Stack()
 		self.player_order = self.players
@@ -25,15 +26,15 @@ class Game(object):
 		self.draw_check = False
 		print(f"Setup finished!")
 		for p in self.players:
-			p.draw(deck, 7)
-		pile.add_card(deck.draw())
+			p.draw_card(self.deck, 7)
+		self.pile.add_card(self.deck.draw())
 
 	def turn(self):
 		self.player_increment = 1
 		self.collapse_stack()
 		self.current_player_number = (self.current_player_number + self.player_increment) % len(self.player_order)
 		turn_player = self.player_order[self.current_player_number]
-		print(f"Player {self.player_order[0]}'s turn.")
+		print(f"Player {turn_player}'s turn.")
 		print(f"Your Hand: {turn_player.display_hand()}")
 		""" if self.draw_check:
 			if turn_player.has_effect("draw"):
@@ -45,15 +46,22 @@ class Game(object):
 		else:
 			pass
 		option_string = ", ".join(turn_player.get_playable()) """
-
-		options = turn_player.get_playable(pile.get_playable())
-		option_string = "Pick a card: "
+		print(f"Top of Pile: {self.pile.top()}")
+		options = turn_player.get_playable(self.pile.top().suit, self.pile.top().number)
+		if len(options) == 0:
+			input("You cannot play anything. Press Enter to draw a card.\n>")
+			turn_player.draw_card(self.deck)
+			options = turn_player.get_playable(self.pile.top().suit, self.pile.top().number)
+			if len(options) == 0:
+				input(f"The card you drew ({turn_player.hand[-1]}) could not be played.\n>")
+				return
+		option_string =""
 		for index, card in enumerate(options):
 			option_string += f"[{index}: {card}]"
-		choice = input(option_string)
-		turn_player.play_card(choice)
+		choice = int(input(f"Pick a card: {option_string}\n>"))
+		self.pile.add_card(turn_player.play_card(choice))
 
-		if check_victory(turn_player):
+		if self.check_victory(turn_player):
 			self.end(turn_player)
 
 
