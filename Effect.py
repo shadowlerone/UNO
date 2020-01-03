@@ -9,10 +9,8 @@ class Effect(object):
 	def __init__(self, effect_type=NONE, amount=NONE, color = NONE, bypass_suit=False):
 		self.bypass_suit = bypass_suit
 		self.type = effect_type
-		if self.type == DRAW or self.type == WILDDRAW:
+		if self.isDraw():
 			self.amount = amount
-		else:
-			self.amount = None
 		if self.isWild():
 			self.color = color
 

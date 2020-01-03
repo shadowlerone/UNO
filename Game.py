@@ -60,7 +60,9 @@ class Game(object):
 				return
 		else:
 			options = turn_player.get_playable(playable_suit, playable_number)
+
 		print(f"Top of Pile: {self.pile.top()}")
+
 		if len(options) == 0:
 			input("You cannot play anything. Press Enter to draw a card.\n>")
 			turn_player.draw_card(self.deck)
@@ -68,6 +70,7 @@ class Game(object):
 			if len(options) == 0:
 				input(f"The card you drew ({turn_player.hand[-1]}) could not be played.\n>")
 				return
+
 		option_string = self.input_format(options)
 		choice = self.get_input(f"Pick a card: {option_string}\n>", min = 0, max = len(options) -1)
 		played = turn_player.play_card(choice)

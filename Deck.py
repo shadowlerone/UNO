@@ -14,14 +14,12 @@ def uno_deck():
 	for x in range(1, 10):
 		template.append(x)
 		template.append(x)
-	# print(template)
 	return template
 
 
 
 def deck_format(type):
 	temp = uno_deck()
-	# print(temp)
 	out = []
 	for suit in UNOSUITS:
 		for x in temp:
